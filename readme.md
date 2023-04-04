@@ -58,7 +58,7 @@ I also attempted to extract as many features as possible from analysing the text
 
 
 
-## Baseline Model - Histogram XGBoost Classifier
+## Baseline Model - Histogram XGBoost Classifier - RoBERTa 
 
 <img src="imgs/lr_small_confusion.png" alt="Image" width="450" height="400"> <img src="imgs/lr_metrics.png" alt="Image" width="450" height="400"> 
 
