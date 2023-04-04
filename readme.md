@@ -58,37 +58,37 @@ I also attempted to extract as many features as possible from analysing the text
 
 
 
-## Baseline Model - Histogram XGBoost Classifier - RoBERTa 
+## Baseline Model - Logistic Regression with Tf-Idf Embeddings
 
-<img src="imgs/lr_small_confusion.png" alt="Image" width="450" height="400"> <img src="imgs/lr_metrics.png" alt="Image" width="450" height="400"> 
+<img src="imgs/logReg.png" alt="Image" width="450" height="400">
 
-## Model Iteration 2 - Random Forest Classifier
-After hyperparameter tuning, a random forest classifier had high scores for 87 targets, but failed to ever predict many of the signs:
-<img src="imgs/rf_metrics.png" alt="Image" width="450" height="100">  
+## Model Iteration 2 - Histogram XGBoost Classifier with Tf-Idf Embeddings
 
-<img src="imgs/rf_metics_df.png" alt="Image" width="450" height="350">  
+<img src="imgs/xgb.png" alt="Image" width="450" height="400">  
 
-## Model Iteration 3 - Histogram XGBoost Classifier
-The default XGBoost Classifier using the histogram tree method (tree_method = 'gpu_hist') succeeded in predicting all targets all targets at least once, and performed great overall:  
-<img src="imgs/hxgb_metrics.png" alt="Image" width="450" height="400">   
+## Model Iteration 3 - Sequential Deep Neural Network with Tf-Idf Embeddings
 
-## Model Iteration 4 - Histogram XGBoost Classifier + SMOTE
-With hyperparameter tuning and SMOTE during training results improved even more:  
-<img src="imgs/hxgb_smote_metrics.png" alt="Image" width="450" height="100">   
+<img src="imgs/seqv2.png" alt="Image" width="450" height="400">  
 
-The model also performed well in recall for common words:    
-<img src="imgs/recall_common_words.png" alt="Image" width="150" height="200">  
+## Model Iteration 4 - Histogram XGBoost Classifier with RoBERTA Embeddings
 
+<img src="imgs/xgbRoBERTa.png" alt="Image" width="450" height="400">  
 
-## Conclusions and Future Improvements
- - Scalable: Our final model maintains performance as we increase number of signs to predict.
- - Lightweight: Model is intrinsically faster to train and predict compared to other sophisticated models.
- - Optimized for common words.
+## Model Iteration 5 - Sequential Deep Neural Network with RoBERTA Embeddings
 
-As I continue work on this project I would like to explore extracting more information from each video file, and in the case of deployment for production, it would be good to add more signers and ensure the model adapts to new environments the signers find themselves in.
+<img src="imgs/seqRoberta.png" alt="Image" width="450" height="400">  
 
-Learn More about MediaPipe's solutions:
-https://google.github.io/mediapipe/solutions/holistic.html
+## Conclusions  
+Unfortunately the models did not perform fantastically, with the best models performing at around 65% classification accuracy.  
+
+Although with these results I would recommend using the model with the best weighted average f1-score to prioritize which new posts should recieve moderation attention. Those with the highest probability to be closed, as predicted by the model should be moderated first.  
+
+Hence our Final Model would be the Histogram XGBoost with RoBERTa embeddings, performing with a whopping 64% weighted average f1-score, which is far better than randomly guessing.
+
+## Future Improvements  
+In the future I would like to attempt extracting more meaning from the text, using different kinds of pretrained text embeddings and extracting more features from the text.  
+  
+I would also like to try training with the full 3.4M post dataset, having more time to preprocess all that data.
 
 Kaggle Competition Link:
-https://www.kaggle.com/competitions/asl-signs/overview
+https://www.kaggle.com/c/predict-closed-questions-on-stack-overflow
